@@ -1,0 +1,12 @@
+services:
+  tienda:
+    image: prestashop/
+
+  bd:
+ 
+  
+  correo:
+
+volumes:
+networks:
+  interna:
