@@ -1,9 +1,40 @@
 services:
   tienda:
-    image: prestashop/
+    image: prestashop/prestashop:8.2
+
+    enviroment:
+      DB_USER:
+
+    volumes:
+    
+
+
+    depends_on:
+      db:
+      
+      correo:
+
+    networks:
+
+
 
   bd:
- 
+    image: mariadb:11.8
+    environment:
+      MARIADB_DATABASE: ${BD_NOMBRE:-prestashop}
+      MARIADB_USER: ${BD_USUARIO:-prestashop}
+      MARIADB_PASSWORD: ${BD_CONTRASENA:?Falta BD_CONTRASENA en .env}
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - bd_datos:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - interna
   
   correo:
 
