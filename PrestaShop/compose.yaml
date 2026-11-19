@@ -28,6 +28,7 @@ services:
         condition: service_started
     networks:
       - interna
+    restart: unless-stopped
 
 #BASE DE DATOS
   bd:
